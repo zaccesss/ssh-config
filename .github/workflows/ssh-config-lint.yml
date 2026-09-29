@@ -1,0 +1,68 @@
+name: SSH Config Lint
+
+# Validates each platform config on its own real OS, since UseKeychain is a macOS-only OpenSSH
+# directive that a Linux or Windows ssh client rejects at parse time. Also confirms UseKeychain is
+# the only difference between platforms and fails on anything shaped like a private key.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  parse:
+    name: Parse ${{ matrix.platform }}/config
+    strategy:
+      matrix:
+        include:
+          - platform: mac
+            os: macos-latest
+          - platform: linux
+            os: ubuntu-latest
+          - platform: windows
+            os: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Parse the config on its real platform
+        shell: bash
+        run: ssh -F "${{ matrix.platform }}/config" -G github.com > /dev/null
+
+  diff-and-scan:
+    name: Confirm the only difference and scan for private keys
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Confirm only UseKeychain differs between platforms
+        run: |
+          diff <(grep -v UseKeychain mac/config) linux/config
+          diff <(grep -v UseKeychain mac/config) windows/config
+
+      - name: Hard-fail on anything shaped like a private key
+        run: |
+          hit=0
+          if grep -rl "PRIVATE KEY" . --exclude-dir=.git --exclude=ssh-config-lint.yml; then
+            echo "::error::a PEM private key header was found in the tree"
+            hit=1
+          fi
+          while IFS= read -r -d '' f; do
+            case "$f" in
+              */config) continue ;;
+            esac
+            echo "::error file=$f::unexpected file present, only config belongs in a platform folder"
+            hit=1
+          done < <(find mac linux windows -type f -print0)
+          exit "$hit"
