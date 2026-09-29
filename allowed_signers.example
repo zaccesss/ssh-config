@@ -1,0 +1,4 @@
+# One line per signing key, in the format: email keytype public-key
+# Replace the placeholders below with your own values, then copy this file to
+# ~/.ssh/allowed_signers.
+you@example.com ssh-ed25519 <your-signing-public-key>
