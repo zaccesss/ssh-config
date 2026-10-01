@@ -1,6 +1,6 @@
 name: SSH Config Lint
 
-# Validates each platform config on its own real OS, since UseKeychain is a macOS-only OpenSSH
+# validates each platform config on its own real OS, since UseKeychain is a macOS-only OpenSSH
 # directive that a Linux or Windows ssh client rejects at parse time. Also confirms UseKeychain is
 # the only difference between platforms and fails on anything shaped like a private key.
 
