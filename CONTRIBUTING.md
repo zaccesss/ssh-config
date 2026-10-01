@@ -28,7 +28,6 @@ guide improvements.
 
 > [!IMPORTANT]
 > - **Comments**: explain the why, not the what.
-> - **UK English** in prose and documentation.
 > - **Never commit a private key, a real public key or a real host entry.**
 
 ## Reporting bugs
