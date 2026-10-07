@@ -10,6 +10,14 @@ ssh-keygen -t ed25519 -C "your-device-name-signing" -f ~/.ssh/git_sign_ed25519
 Use a passphrase on both. `ssh-agent` or Keychain integration means you only enter it once per
 session, not on every push.
 
+Every machine gets its own pair. Never copy one machine's keys onto another. Use the device name
+in the key comment so each key is easy to tell apart on the forge.
+
+To keep the public halves in your own copy of this repo, save them as
+`<platform>/id_ed25519.<device-name>.pub` and `<platform>/git_sign_ed25519.<device-name>.pub`
+with the device name in lowercase, then delete that platform's `*.placeholder.pub` files. Naming
+each file by machine keeps two laptops on the same platform from overwriting each other.
+
 ## 2. Register the public keys
 
 - `id_ed25519.pub` as an **authentication key** on every forge you push to.

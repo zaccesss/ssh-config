@@ -1,4 +1,5 @@
-# Never commit a private key. Only config files and *.example files belong in this repo.
+# Never commit a private key. Only config files, *.example files and public keys (*.pub) belong
+# in this repo.
 id_ed25519
 id_ed25519.ppk
 id_rsa

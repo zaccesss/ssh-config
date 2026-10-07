@@ -60,9 +60,9 @@ jobs:
           fi
           while IFS= read -r -d '' f; do
             case "$f" in
-              */config) continue ;;
+              */config|*/*.pub) continue ;;
             esac
-            echo "::error file=$f::unexpected file present, only config belongs in a platform folder"
+            echo "::error file=$f::unexpected file present, only config and *.pub belong in a platform folder"
             hit=1
           done < <(find mac linux windows -type f -print0)
           exit "$hit"
