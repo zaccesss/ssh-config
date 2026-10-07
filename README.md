@@ -12,6 +12,10 @@ new machine gets the correct setup in a few steps.
 - **`<platform>/config`** - `Host` blocks pointing `github.com` and `gist.github.com` at a
   dedicated auth key with `IdentitiesOnly yes`, so SSH never falls back to offering the wrong key
   first. `AddKeysToAgent yes` means a passphrase is only asked for once per session.
+- **`<platform>/*.placeholder.pub`** - where each machine's public keys go. Every placeholder
+  carries the `ssh-keygen` command for that platform and the filename to use:
+  `<platform>/<key>.<device-name>.pub`, one file per machine, since several machines can share a
+  platform folder. Public keys only, never the private half.
 - **[`allowed_signers.example`](allowed_signers.example)** - the format of the file Git reads to
   verify SSH commit signatures locally, with placeholders for your own email and public key. See
   [guides/reference.md](guides/reference.md).
@@ -42,8 +46,8 @@ generating your own key pairs and setting up `allowed_signers`.
 
 | Path | Contents |
 | --- | --- |
-| [`mac/`](mac/) | Config with `UseKeychain` |
-| [`linux/`](linux/) | Config without `UseKeychain` |
-| [`windows/`](windows/) | Config without `UseKeychain` |
+| [`mac/`](mac/) | Config with `UseKeychain`, public key placeholders |
+| [`linux/`](linux/) | Config without `UseKeychain`, public key placeholders |
+| [`windows/`](windows/) | Config without `UseKeychain`, public key placeholders |
 | [`allowed_signers.example`](allowed_signers.example) | Allowed signers format with placeholders |
 | [`guides/`](guides/) | Key generation walkthrough and reference |
