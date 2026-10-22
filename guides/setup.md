@@ -18,6 +18,10 @@ To keep the public halves in your own copy of this repo, save them as
 with the device name in lowercase, then delete that platform's `*.placeholder.pub` files. Naming
 each file by machine keeps two laptops on the same platform from overwriting each other.
 
+A Linux install inside Windows (WSL) is a separate machine for this purpose: it gets its own pair
+in `linux/` and its own `allowed_signers` line, never a copy of the Windows keys. A Linux virtual
+machine that shares its host's home folder and SSH agent can use the host's keys instead.
+
 ## 2. Register the public keys
 
 - `id_ed25519.pub` as an **authentication key** on every forge you push to.
