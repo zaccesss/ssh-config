@@ -9,8 +9,11 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.1] - 2026-10-22
+
 ### Added
 
+- Setup guidance for WSL and Linux virtual machines: when a Linux install needs its own key pair
 - Public key placeholders in each platform folder, with the `ssh-keygen` command for that platform
   and per-machine naming guidance (`<platform>/<key>.<device-name>.pub`)
 - One-key-pair-per-machine guidance in the setup guide and a second machine in
