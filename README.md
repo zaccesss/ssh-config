@@ -10,5 +10,3 @@ This repository's SSH configuration has moved to the `git/ssh` folder of the dot
 
 > [!NOTE]
 > This repository is archived and read-only.
-
-![The first lines of config as they look in the Zacess Deep Contrast Dark theme](docs/images/preview.png)
